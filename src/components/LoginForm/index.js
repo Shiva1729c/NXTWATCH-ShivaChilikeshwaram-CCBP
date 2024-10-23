@@ -1,5 +1,6 @@
 import {Component} from 'react'
 import Cookies from 'js-cookie'
+import {Redirect} from 'react-router-dom'
 import {
   LoginBackgroundContainer,
   FormContainer,
@@ -19,6 +20,7 @@ class LoginForm extends Component {
     username: '',
     password: '',
     errMsg: '',
+    showPassword: false,
   }
 
   onSubmitFailure = errMsg => {
@@ -59,6 +61,12 @@ class LoginForm extends Component {
     this.setState({password: event.target.value})
   }
 
+  toggleShowPassword = () => {
+    this.setState(prevState => ({
+      showPassword: !prevState.showPassword,
+    }))
+  }
+
   renderUserName = () => {
     const {username} = this.state
     return (
@@ -76,12 +84,13 @@ class LoginForm extends Component {
   }
 
   renderPassword = () => {
-    const {password} = this.state
+    const {password, showPassword} = this.state
+    const togglePasswordType = showPassword ? 'text' : 'password'
     return (
       <InputContainer>
         <CustomLabel htmlFor="password">PASSWORD</CustomLabel>
         <CustomInput
-          type="password"
+          type={togglePasswordType}
           placeholder="Password"
           id="password"
           value={password}
@@ -91,17 +100,29 @@ class LoginForm extends Component {
     )
   }
 
-  renderShowPassword = () => (
-    <CheckBoxContainer>
-      <CheckBoxInput type="checkbox" id="checkbox" />
-      <CustomLabel htmlFor="checkbox" checkbox>
-        Show Password
-      </CustomLabel>
-    </CheckBoxContainer>
-  )
+  renderShowPassword = () => {
+    const {showPassword} = this.state
+    return (
+      <CheckBoxContainer>
+        <CheckBoxInput
+          type="checkbox"
+          id="checkbox"
+          checked={showPassword}
+          onChange={this.toggleShowPassword}
+        />
+        <CustomLabel htmlFor="checkbox" checkbox>
+          Show Password
+        </CustomLabel>
+      </CheckBoxContainer>
+    )
+  }
 
   render() {
     const {errMsg} = this.state
+    const jwtToken = Cookies.get('jwt_token')
+    if (jwtToken !== undefined) {
+      return <Redirect to="/" />
+    }
     return (
       <LoginBackgroundContainer>
         <FormContainer>

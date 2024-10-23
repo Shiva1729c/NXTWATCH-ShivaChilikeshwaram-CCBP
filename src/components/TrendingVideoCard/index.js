@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom'
 import {formatDistanceToNow} from 'date-fns'
 
 import {
@@ -12,7 +13,7 @@ import {
   ProfileSection,
 } from './styledComponents'
 
-const VideoItem = props => {
+const TrendingVideoCard = props => {
   const {VideoItemDetails} = props
   const {
     publishedAt,
@@ -21,6 +22,7 @@ const VideoItem = props => {
     viewCount,
     channelName,
     channelProfileImageUrl,
+    id,
   } = VideoItemDetails
 
   const parsedDate = new Date(publishedAt)
@@ -30,18 +32,20 @@ const VideoItem = props => {
     <VideoCardItem>
       <ThumbnailVideoImage src={thumbnailUrl} alt="video thumbnail" />
       <ProfileSection>
-        <ProfileImage src={channelProfileImageUrl} alt="channel logo" />
-        <ProfileDetailsContainer>
-          <Title>{title}</Title>
-          <ChannelName>{channelName}</ChannelName>
-          <ProfileViewsContainer>
-            <ViewsItem views>{viewCount}</ViewsItem>
-            <ViewsItem>{publishedTime} ago</ViewsItem>
-          </ProfileViewsContainer>
-        </ProfileDetailsContainer>
+        <Link to={`/videos/${id}`} style={{textDecoration: 'none'}}>
+          <ProfileImage src={channelProfileImageUrl} alt="channel logo" />
+          <ProfileDetailsContainer>
+            <Title>{title}</Title>
+            <ChannelName>{channelName}</ChannelName>
+            <ProfileViewsContainer>
+              <ViewsItem views>{viewCount}</ViewsItem>
+              <ViewsItem>{publishedTime} ago</ViewsItem>
+            </ProfileViewsContainer>
+          </ProfileDetailsContainer>
+        </Link>
       </ProfileSection>
     </VideoCardItem>
   )
 }
 
-export default VideoItem
+export default TrendingVideoCard

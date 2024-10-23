@@ -4,7 +4,9 @@ import Cookies from 'js-cookie'
 import {IoIosClose} from 'react-icons/io'
 import {MdSearch} from 'react-icons/md'
 import Header from '../Header'
-import VideoItem from '../VideoItem'
+import HomeVideoCard from '../HomeVideoCard'
+import SideBar from '../SideBar'
+import AppContext from '../../context/AppContext'
 
 import {
   HomeBackGroundContainer,
@@ -115,7 +117,7 @@ class Home extends Component {
     return (
       <VideoItemContainer>
         {videosData.map(eachVideo => (
-          <VideoItem VideoItemDetails={eachVideo} key={eachVideo.id} />
+          <HomeVideoCard VideoItemDetails={eachVideo} key={eachVideo.id} />
         ))}
       </VideoItemContainer>
     )
@@ -199,14 +201,27 @@ class Home extends Component {
     return (
       <>
         <Header />
-        <HomeBackGroundContainer>
-          <SideBarHomeContainer>Side bar</SideBarHomeContainer>
-          <HomeContent>
-            {!isBannerClosed ? this.renderBanner() : ''}
-            {this.renderSearchInput()}
-            {this.renderApiStatus()}
-          </HomeContent>
-        </HomeBackGroundContainer>
+        <AppContext>
+          {value => {
+            const {isDarkTheme} = value
+
+            return (
+              <HomeBackGroundContainer
+                data-testid="home"
+                isDarkTheme={isDarkTheme}
+              >
+                <SideBarHomeContainer>
+                  <SideBar />
+                </SideBarHomeContainer>
+                <HomeContent>
+                  {!isBannerClosed ? this.renderBanner() : ''}
+                  {this.renderSearchInput()}
+                  {this.renderApiStatus()}
+                </HomeContent>
+              </HomeBackGroundContainer>
+            )
+          }}
+        </AppContext>
       </>
     )
   }

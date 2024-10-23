@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const HomeBackGroundContainer = styled.div`
-  background-color: #f9f9f9;
+  background-color: ${props => (props.isDarkTheme ? '#181818' : '#f9f9f9')};
   min-height: 100vh;
   display: flex;
 `

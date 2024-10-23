@@ -73,4 +73,7 @@ export const SubmitButton = styled.button`
 export const ErrorMsg = styled.p`
   color: #ff0b37;
   font-family: 'Roboto';
+  font-size: 14px;
+  margin-left: 8px;
+  margin-top: 5px;
 `

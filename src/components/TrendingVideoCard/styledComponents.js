@@ -1,19 +1,22 @@
 import styled from 'styled-components'
-import {Link} from 'react-router-dom'
+// import {Link} from 'react-router-dom'
 
-export const VideoLink = styled(Link)`
-  text-decoration: none;
-`
+// export const VideoLink = styled(Link)`
+//   text-decoration: none;
+// `
 export const VideoCardItem = styled.li`
-  width: 400px;
   margin-bottom: 40px;
+  padding-right: 20px;
   @media screen and (min-width: 768px) {
-    width: 32%;
+    display: flex;
   }
 `
 
 export const ThumbnailVideoImage = styled.img`
-  width: 100%;
+  width: 400px;
+  margin-right: 20px;
+  @media screen and (min-width: 768px) {
+  }
 `
 export const ProfileImageContainer = styled.div`
   display: flex;
@@ -21,17 +24,19 @@ export const ProfileImageContainer = styled.div`
 `
 export const ProfileSection = styled.div`
   display: flex;
-  justify-content: space-between;
 `
 export const ProfileImage = styled.img`
   width: 50px;
   height: 50px;
   margin-right: 5px;
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
 `
 export const Title = styled.h1`
   font-family: 'Roboto';
-  font-size: 16px;
-  font-weight: 400;
+  font-size: 18px;
+  font-weight: 600;
   color: #212121;
 `
 
