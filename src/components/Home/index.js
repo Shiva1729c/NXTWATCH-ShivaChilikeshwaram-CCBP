@@ -102,7 +102,7 @@ class Home extends Component {
           onChange={this.onChangeSearchInput}
           value={searchInput}
         />
-        <IconButton onClick={this.onSearchVideos}>
+        <IconButton onClick={this.onSearchVideos} data-testid="searchButton">
           <MdSearch size={20} />
         </IconButton>
       </SearchInputContainer>
@@ -129,9 +129,9 @@ class Home extends Component {
         src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-search-results-img.png"
         alt="no videos"
       />
-      <FailureHeading>Oops! Something Went Wrong</FailureHeading>
+      <FailureHeading>No Search results found</FailureHeading>
       <FailureDescription>
-        We are having some trouble to complete your request. Please try again.
+        Try different key words or remove search filter
       </FailureDescription>
       <FailureRetryButton type="button" onClick={this.getVideos}>
         Retry
@@ -144,7 +144,7 @@ class Home extends Component {
   }
 
   renderBanner = () => (
-    <HomeBannerContainer>
+    <HomeBannerContainer data-testid="banner">
       <BannerContent>
         <WebsiteLogo
           src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
@@ -201,7 +201,7 @@ class Home extends Component {
     return (
       <>
         <Header />
-        <AppContext>
+        <AppContext.Consumer>
           {value => {
             const {isDarkTheme} = value
 
@@ -221,7 +221,7 @@ class Home extends Component {
               </HomeBackGroundContainer>
             )
           }}
-        </AppContext>
+        </AppContext.Consumer>
       </>
     )
   }

@@ -5,6 +5,7 @@ import Cookies from 'js-cookie'
 import Header from '../Header'
 import SideBar from '../SideBar'
 import GamingVideoCard from '../GamingVideoCard'
+import AppContext from '../../context/AppContext'
 
 import {
   GamingHeaderContainer,
@@ -123,20 +124,27 @@ class Gaming extends Component {
     return (
       <>
         <Header />
-        <GamingContainer data-testid="gaming">
-          <SideBarGamingContainer>
-            <SideBar />
-          </SideBarGamingContainer>
-          <GamingVideoContentContainer>
-            <GamingHeaderContainer>
-              <GamingIconContainer>
-                <SiYoutubegaming size={30} color="#ff0000" />
-              </GamingIconContainer>
-              <GamingText>Gaming</GamingText>
-            </GamingHeaderContainer>
-            {this.renderApiStatus()}
-          </GamingVideoContentContainer>
-        </GamingContainer>
+        <AppContext.Consumer>
+          {value => {
+            const {isDarkTheme} = value
+            return (
+              <GamingContainer data-testid="gaming" isDarkTheme={isDarkTheme}>
+                <SideBarGamingContainer>
+                  <SideBar />
+                </SideBarGamingContainer>
+                <GamingVideoContentContainer>
+                  <GamingHeaderContainer>
+                    <GamingIconContainer>
+                      <SiYoutubegaming size={30} color="#ff0000" />
+                    </GamingIconContainer>
+                    <GamingText>Gaming</GamingText>
+                  </GamingHeaderContainer>
+                  {this.renderApiStatus()}
+                </GamingVideoContentContainer>
+              </GamingContainer>
+            )
+          }}
+        </AppContext.Consumer>
       </>
     )
   }

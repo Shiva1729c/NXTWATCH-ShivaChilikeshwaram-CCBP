@@ -9,9 +9,9 @@ export const VideoDetailsContainer = styled.div`
     justify-content: space-between;
   }
 `
+
 export const InteractionButtonsContainer = styled.div`
   display: flex;
-  //   border: 1px solid red;
 `
 export const InteractionButton = styled.button`
   display: flex;
@@ -22,11 +22,19 @@ export const InteractionButton = styled.button`
   background: none;
   margin-right: 10px;
 `
+
+export const LikedButton = styled(InteractionButton)`
+  color: ${props => (props.isLiked ? '#2563eb' : '#64748b')}!important;
+`
+
+export const DisLikeButton = styled(InteractionButton)`
+  color: ${props => (props.isDisLiked ? '#2563eb' : '#64748b')}!important;
+`
+
 export const InteractionButtonText = styled.p`
   font-family: 'Roboto';
   font-size: 16px;
   font-weight: 500;
-  color: #64748b;
   margin-left: 5px;
 `
 
@@ -48,14 +56,14 @@ export const VideoPlayer = styled.div`
 `
 
 export const VideoItem = styled.div`
-  background-color: #f9f9f9;
+  background-color: ${props => (props.isDarkTheme ? '#0f0f0f ' : '#f9f9f9')};
 `
 
 export const Title = styled.h1`
   font-family: 'Roboto';
   font-size: 18px;
   font-weight: 500;
-  color: #212121;
+  color: ${props => (props.isDarkTheme ? '#0f0f0f ' : '#f9f9f9')};
 `
 
 export const VideoViewsAndTime = styled.ul`
@@ -67,7 +75,8 @@ export const ViewsItem = styled.li`
   margin-right: 30px;
   font-size: 14px;
   font-family: 'Roboto';
-  color: #64748b;
+  color: ${props => (props.isDarkTheme ? '#f9f9f9 ' : '#64748b')};
+
   list-style-type: ${props => (props.views ? 'none' : 'disc')};
 `
 
@@ -85,18 +94,18 @@ export const ChannelTextContainer = styled.div`
   font-size: 16px;
 `
 export const ChannelName = styled.p`
-  color: #212121;
+  color: ${props => (props.isDarkTheme ? '#f9f9f9 ' : '#212121')};
 `
 export const ChannelSubscribers = styled.p`
-  color: #64748b;
+  color: ${props => (props.isDarkTheme ? '#f9f9f9 ' : '#64748b')};
 `
 export const ChannelDescription = styled.p`
   font-family: 'Roboto';
   font-size: 16px;
   text-align: left;
   font-weight: 400;
-  color: #383838;
-  //   border: 1px solid red;
+  color: ${props => (props.isDarkTheme ? '#f9f9f9 ' : '#383838')};
+
   @media screen and (min-width: 768px) {
     margin-left: 56px;
   }

@@ -5,6 +5,7 @@ import Cookies from 'js-cookie'
 import Header from '../Header'
 import SideBar from '../SideBar'
 import TrendingVideoCard from '../TrendingVideoCard'
+import AppContext from '../../context/AppContext'
 
 import {
   TrendingHeaderContainer,
@@ -121,20 +122,31 @@ class TrendingVideos extends Component {
     return (
       <>
         <Header />
-        <TrendingContainer data-testid="trending">
-          <SideBarTrendingContainer>
-            <SideBar />
-          </SideBarTrendingContainer>
-          <TrendingVideoContentContainer>
-            <TrendingHeaderContainer>
-              <TrendingIconContainer>
-                <AiFillFire size={30} color=" #ff0b37" />
-              </TrendingIconContainer>
-              <TrendingText>Trending</TrendingText>
-            </TrendingHeaderContainer>
-            {this.renderApiStatus()}
-          </TrendingVideoContentContainer>
-        </TrendingContainer>
+        <AppContext.Consumer>
+          {value => {
+            const {isDarkTheme} = value
+
+            return (
+              <TrendingContainer
+                data-testid="trending"
+                isDarkTheme={isDarkTheme}
+              >
+                <SideBarTrendingContainer>
+                  <SideBar />
+                </SideBarTrendingContainer>
+                <TrendingVideoContentContainer>
+                  <TrendingHeaderContainer>
+                    <TrendingIconContainer>
+                      <AiFillFire size={30} color=" #ff0b37" />
+                    </TrendingIconContainer>
+                    <TrendingText>Trending</TrendingText>
+                  </TrendingHeaderContainer>
+                  {this.renderApiStatus()}
+                </TrendingVideoContentContainer>
+              </TrendingContainer>
+            )
+          }}
+        </AppContext.Consumer>
       </>
     )
   }

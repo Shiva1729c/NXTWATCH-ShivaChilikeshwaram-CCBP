@@ -49,8 +49,8 @@ export const SideBarContainer = styled.div`
 `
 export const SavedVideosContainer = styled.div`
   display: flex;
-  background-color: #f9f9f9;
   min-height: 100vh;
+  background-color: ${props => (props.isDarkTheme ? '#0f0f0f' : '#f9f9f9')};
 `
 
 export const SavedVideoContentContainer = styled.div`
@@ -72,13 +72,13 @@ export const FailureImage = styled.img`
 export const FailureHeading = styled.h1`
   font-family: 'Roboto';
   font-size: 32px;
-  color: #212121;
+  color: ${props => (props.isDarkTheme ? '#f9f9f9' : '#212121')};
   margin-bottom: 0px;
 `
 export const FailureDescription = styled.p`
   font-family: 'Roboto';
   font-size: 16px;
-  color: #616e7c;
+  color: ${props => (props.isDarkTheme ? '#f9f9f9' : '#616e7c')};
   text-align: center;
 `
 export const SavedVideoCardContainer = styled.ul`

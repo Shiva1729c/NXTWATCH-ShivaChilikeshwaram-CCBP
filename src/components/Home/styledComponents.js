@@ -19,7 +19,7 @@ export const WebsiteLogo = styled.img`
   width: 150px;
 `
 
-export const BannerText = styled.h1`
+export const BannerText = styled.p`
   font-family: 'Roboto';
   font-size: 18px;
   color: #0f0f0f;

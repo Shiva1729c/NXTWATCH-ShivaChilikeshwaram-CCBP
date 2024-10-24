@@ -6,22 +6,23 @@ export const SideBarContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: #ffffff;
+  background-color: ${props => (props.isDarkTheme ? '#424242' : '#ffffff')};
 `
 export const SideMenu = styled.ul`
   list-style-type: none;
   padding-left: 0px;
+  background-color: ${props => (props.isDarkTheme ? '#424242' : '#ffffff')};
 `
 
 export const MenuItem = styled.li`
   display: flex;
   align-items: center;
-  background-color: ${props => (props.active ? '#d7dfe9' : '#ffffff')};
 `
 
 export const MenuText = styled.p`
   font-family: 'Roboto';
-  color: #231f20;
+  color: ${props => (props.isDarkTheme ? '#ffffff' : '#231f20')};
+
   font-weight: 500;
   margin-left: 20px;
   font-size: 24px;
@@ -29,7 +30,7 @@ export const MenuText = styled.p`
 export const ContactInfoContainer = styled.div`
   margin-bottom: 50px;
 `
-export const ContactText = styled.h1`
+export const ContactText = styled.p`
   font-family: 'Roboto';
   font-size: 17px;
   font-weight: 500;

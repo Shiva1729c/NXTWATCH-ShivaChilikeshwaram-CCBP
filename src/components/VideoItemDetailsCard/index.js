@@ -20,10 +20,18 @@ import {
   ChannelSubscribers,
   ChannelDescription,
   VideoPlayer,
+  LikedButton,
+  DisLikeButton,
 } from './styledComponents'
 
 const VideoItemDetailsCard = props => {
-  const {VideoItemCardDetails} = props
+  const {
+    VideoItemCardDetails,
+    isLiked,
+    updateIsLiked,
+    updateDisLike,
+    isDisLiked,
+  } = props
   const {
     videoUrl,
     title,
@@ -35,38 +43,58 @@ const VideoItemDetailsCard = props => {
     description,
   } = VideoItemCardDetails
 
+  const toggleIsLiked = () => {
+    updateIsLiked()
+  }
+
+  const toggleIsDisLiked = () => {
+    updateDisLike()
+  }
+
   const parsedDate = new Date(publishedAt)
   const publishedTime = formatDistanceToNow(parsedDate)
 
   return (
     <AppContext.Consumer>
       {value => {
-        const {addVideoToList} = value
+        const {addVideoToList, isDarkTheme} = value
 
         const onSaveVideo = () => {
           addVideoToList({...VideoItemCardDetails})
         }
 
         return (
-          <VideoItem>
+          <VideoItem isDarkTheme={isDarkTheme}>
             <VideoPlayer>
               <ReactPlayer url={videoUrl} controls width="100%" height="100%" />
             </VideoPlayer>
             <Title>{title}</Title>
             <VideoDetailsContainer>
               <VideoViewsAndTime>
-                <ViewsItem>{viewCount} views</ViewsItem>
-                <ViewsItem>{publishedTime} ago</ViewsItem>
+                <ViewsItem isDarkTheme={isDarkTheme}>
+                  {viewCount} views
+                </ViewsItem>
+                <ViewsItem isDarkTheme={isDarkTheme}>
+                  {publishedTime} ago
+                </ViewsItem>
               </VideoViewsAndTime>
               <InteractionButtonsContainer>
-                <InteractionButton type="button">
-                  <AiOutlineLike size={20} color="#64748b" />
+                <LikedButton
+                  type="button"
+                  onClick={toggleIsLiked}
+                  isLiked={isLiked}
+                >
+                  <AiOutlineLike size={20} />
                   <InteractionButtonText>Like</InteractionButtonText>
-                </InteractionButton>
-                <InteractionButton type="button">
-                  <AiOutlineDislike size={20} color="#64748b" />
+                </LikedButton>
+                <DisLikeButton
+                  type="button"
+                  onClick={toggleIsDisLiked}
+                  isDisLiked={isDisLiked}
+                >
+                  <AiOutlineDislike size={20} />
                   <InteractionButtonText>Dislike</InteractionButtonText>
-                </InteractionButton>
+                </DisLikeButton>
                 {/* Save button */}
                 <InteractionButton type="button" onClick={onSaveVideo}>
                   <BiListPlus size={20} color="#64748b" />
@@ -79,13 +107,17 @@ const VideoItemDetailsCard = props => {
             <ChannelDetailsContainer>
               <ChannelLogo src={channelProfileImageUrl} alt="channel logo" />
               <ChannelTextContainer>
-                <ChannelName>{channelName}</ChannelName>
-                <ChannelSubscribers>
+                <ChannelName isDarkTheme={isDarkTheme}>
+                  {channelName}
+                </ChannelName>
+                <ChannelSubscribers isDarkTheme={isDarkTheme}>
                   {subscriberCount} subscribers
                 </ChannelSubscribers>
               </ChannelTextContainer>
             </ChannelDetailsContainer>
-            <ChannelDescription>{description}</ChannelDescription>
+            <ChannelDescription isDarkTheme={isDarkTheme}>
+              {description}
+            </ChannelDescription>
           </VideoItem>
         )
       }}

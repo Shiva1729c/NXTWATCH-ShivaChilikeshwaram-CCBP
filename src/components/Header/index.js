@@ -44,7 +44,7 @@ const Header = props => {
           : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
 
         const themeIcon = isDarkTheme ? (
-          <FaSun size={30} />
+          <FaSun size={30} color="#ffffff" />
         ) : (
           <FaMoon size={30} />
         )
@@ -56,7 +56,11 @@ const Header = props => {
             </Link>
             <HeaderMenu>
               {/* Toggle theme button */}
-              <CustomButton type="button" onClick={onClickDarkTheme}>
+              <CustomButton
+                type="button"
+                onClick={onClickDarkTheme}
+                data-testid="theme"
+              >
                 {themeIcon}
               </CustomButton>
               <ProfileImage

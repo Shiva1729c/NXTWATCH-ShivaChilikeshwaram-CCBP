@@ -20,16 +20,25 @@ import {
 
 class SavedVideos extends Component {
   renderFailureView = () => (
-    <FailureContentContainer>
-      <FailureImage
-        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-saved-videos-img.png"
-        alt="no saved videos"
-      />
-      <FailureHeading>No saved videos found</FailureHeading>
-      <FailureDescription>
-        You can save your videos while watching them
-      </FailureDescription>
-    </FailureContentContainer>
+    <AppContext.Consumer>
+      {value => {
+        const {isDarkTheme} = value
+        return (
+          <FailureContentContainer>
+            <FailureImage
+              src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-saved-videos-img.png"
+              alt="no saved videos"
+            />
+            <FailureHeading isDarkTheme={isDarkTheme}>
+              No saved videos found
+            </FailureHeading>
+            <FailureDescription isDarkTheme={isDarkTheme}>
+              You can save your videos while watching them
+            </FailureDescription>
+          </FailureContentContainer>
+        )
+      }}
+    </AppContext.Consumer>
   )
 
   renderSavedVideoView = savedVideoList => (
@@ -44,13 +53,16 @@ class SavedVideos extends Component {
     return (
       <AppContext.Consumer>
         {value => {
-          const {savedVideoList} = value
+          const {savedVideoList, isDarkTheme} = value
           const hasSavedVideos = savedVideoList.length > 0
 
           return (
             <>
               <Header />
-              <SavedVideosContainer data-testid="savedVideos">
+              <SavedVideosContainer
+                data-testid="savedVideos"
+                isDarkTheme={isDarkTheme}
+              >
                 <SideBarContainer>
                   <SideBar />
                 </SideBarContainer>

@@ -14,7 +14,7 @@ export const ThumbnailVideoImage = styled.img`
 
 export const Title = styled.p`
   font-family: 'Roboto';
-  font-size: 18px;
+  font-size: ${props => (props.viewsCount ? '18px' : '22px')};
   font-weight: ${props => (props.viewsCount ? '400' : '600')};
-  color: ${props => (props.viewsCount ? '#616e7c' : '#212121')};
+  color: ${props => (props.isDarkTheme ? '#f9f9f9' : '#212121')};
 `

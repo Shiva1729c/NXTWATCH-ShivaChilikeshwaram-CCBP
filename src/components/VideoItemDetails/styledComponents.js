@@ -11,7 +11,7 @@ export const SideBarVideoItemDetailsContainer = styled.div`
 export const VideoItemDetailsContainer = styled.div`
   display: flex;
   min-height: 100vh;
-  background-color: #f9f9f9;
+  background-color: ${props => (props.isDarkTheme ? '#0f0f0f' : '#f9f9f9')};
 `
 
 export const VideoDetailsCardContainer = styled.div`

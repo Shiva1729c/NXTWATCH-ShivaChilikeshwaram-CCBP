@@ -37,7 +37,9 @@ export const SideBarTrendingContainer = styled.div`
 `
 export const TrendingContainer = styled.div`
   display: flex;
-  background-color: #f9f9f9;
+
+  background: ${props => (props.isDarkTheme ? '#0f0f0f' : '#f9f9f9')};
+
   min-height: 100vh;
 `
 export const TrendingVideoImageContainer = styled.ul`

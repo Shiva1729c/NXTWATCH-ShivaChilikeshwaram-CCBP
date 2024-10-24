@@ -1,5 +1,6 @@
 import {Link} from 'react-router-dom'
 import {formatDistanceToNow} from 'date-fns'
+import AppContext from '../../context/AppContext'
 
 import {
   VideoCardItem,
@@ -29,22 +30,35 @@ const TrendingVideoCard = props => {
   const publishedTime = formatDistanceToNow(parsedDate)
 
   return (
-    <VideoCardItem>
-      <ThumbnailVideoImage src={thumbnailUrl} alt="video thumbnail" />
-      <ProfileSection>
-        <Link to={`/videos/${id}`} style={{textDecoration: 'none'}}>
-          <ProfileImage src={channelProfileImageUrl} alt="channel logo" />
-          <ProfileDetailsContainer>
-            <Title>{title}</Title>
-            <ChannelName>{channelName}</ChannelName>
-            <ProfileViewsContainer>
-              <ViewsItem views>{viewCount}</ViewsItem>
-              <ViewsItem>{publishedTime} ago</ViewsItem>
-            </ProfileViewsContainer>
-          </ProfileDetailsContainer>
-        </Link>
-      </ProfileSection>
-    </VideoCardItem>
+    <AppContext.Consumer>
+      {value => {
+        const {isDarkTheme} = value
+        return (
+          <VideoCardItem>
+            <ThumbnailVideoImage src={thumbnailUrl} alt="video thumbnail" />
+            <ProfileSection>
+              <Link to={`/videos/${id}`} style={{textDecoration: 'none'}}>
+                <ProfileImage src={channelProfileImageUrl} alt="channel logo" />
+                <ProfileDetailsContainer>
+                  <Title isDarkTheme={isDarkTheme}>{title}</Title>
+                  <ChannelName isDarkTheme={isDarkTheme}>
+                    {channelName}
+                  </ChannelName>
+                  <ProfileViewsContainer>
+                    <ViewsItem views isDarkTheme={isDarkTheme}>
+                      <p>{viewCount}</p>
+                    </ViewsItem>
+                    <ViewsItem isDarkTheme={isDarkTheme}>
+                      <p>{publishedTime} ago</p>
+                    </ViewsItem>
+                  </ProfileViewsContainer>
+                </ProfileDetailsContainer>
+              </Link>
+            </ProfileSection>
+          </VideoCardItem>
+        )
+      }}
+    </AppContext.Consumer>
   )
 }
 

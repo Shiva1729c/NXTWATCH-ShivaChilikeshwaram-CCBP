@@ -1,9 +1,5 @@
 import styled from 'styled-components'
-// import {Link} from 'react-router-dom'
 
-// export const VideoLink = styled(Link)`
-//   text-decoration: none;
-// `
 export const VideoCardItem = styled.li`
   margin-bottom: 40px;
   padding-right: 20px;
@@ -33,11 +29,11 @@ export const ProfileImage = styled.img`
     display: none;
   }
 `
-export const Title = styled.h1`
+export const Title = styled.p`
   font-family: 'Roboto';
   font-size: 18px;
   font-weight: 600;
-  color: #212121;
+  color: ${props => (props.isDarkTheme ? '#f1f5f9' : '#212121')};
 `
 
 export const ProfileViewsContainer = styled.ul`
@@ -50,7 +46,7 @@ export const ViewsItem = styled.li`
   margin-right: 30px;
   font-size: 14px;
   font-family: 'Roboto';
-  color: #64748b;
+  color: ${props => (props.isDarkTheme ? '#f1f5f9' : '#64748b')};
   list-style-type: ${props => (props.views ? 'none' : 'disc')};
 `
 export const ProfileDetailsContainer = styled.div`
@@ -64,5 +60,5 @@ export const ChannelName = styled.p`
   margin-bottom: 3px;
   font-size: 14px;
   font-weight: 400;
-  color: #64748b;
+  color: ${props => (props.isDarkTheme ? '#f1f5f9' : '#64748b')};
 `

@@ -5,6 +5,7 @@ import Header from '../Header'
 import SideBar from '../SideBar'
 
 import VideoItemDetailsCard from '../VideoItemDetailsCard'
+import AppContext from '../../context/AppContext'
 
 import {
   VideoItemDetailsContainer,
@@ -29,22 +30,24 @@ class VideoItemDetails extends Component {
   state = {
     videoItemDetailsData: [],
     apiStatus: apiConstants.initial,
+    isLiked: false,
+    isDisLiked: false,
   }
 
   componentDidMount() {
     this.getVideoItemDetails()
   }
 
-  clickingLikeButton = () => {
+  updateIsLiked = () => {
     this.setState(prevState => ({
       isLiked: !prevState.isLiked,
-      isDisliked: false,
+      isDisLiked: false,
     }))
   }
 
-  clickingDisLikeButton = () => {
+  updateDisLike = () => {
     this.setState(prevState => ({
-      isDisliked: !prevState.isDisliked,
+      isDisLiked: !prevState.isDisLiked,
       isLiked: false,
     }))
   }
@@ -90,14 +93,14 @@ class VideoItemDetails extends Component {
   }
 
   renderVideoItemDetailsCard = () => {
-    const {videoItemDetailsData, isLiked, isDisliked} = this.state
+    const {videoItemDetailsData, isLiked, isDisLiked} = this.state
     return (
       <VideoItemDetailsCard
         VideoItemCardDetails={videoItemDetailsData}
-        clickingLikeButton={this.clickingLikeButton}
-        clickingDisLikeButton={this.clickingDisLikeButton}
+        updateIsLiked={this.updateIsLiked}
+        updateDisLike={this.updateDisLike}
         isLiked={isLiked}
-        isDisliked={isDisliked}
+        isDisLiked={isDisLiked}
       />
     )
   }
@@ -142,14 +145,24 @@ class VideoItemDetails extends Component {
     return (
       <>
         <Header />
-        <VideoItemDetailsContainer data-testid="videoItemDetails">
-          <SideBarVideoItemDetailsContainer>
-            <SideBar />
-          </SideBarVideoItemDetailsContainer>
-          <VideoDetailsCardContainer>
-            {this.renderApiStatus()}
-          </VideoDetailsCardContainer>
-        </VideoItemDetailsContainer>
+        <AppContext.Consumer>
+          {value => {
+            const {isDarkTheme} = value
+            return (
+              <VideoItemDetailsContainer
+                data-testid="videoItemDetails"
+                isDarkTheme={isDarkTheme}
+              >
+                <SideBarVideoItemDetailsContainer>
+                  <SideBar />
+                </SideBarVideoItemDetailsContainer>
+                <VideoDetailsCardContainer>
+                  {this.renderApiStatus()}
+                </VideoDetailsCardContainer>
+              </VideoItemDetailsContainer>
+            )
+          }}
+        </AppContext.Consumer>
       </>
     )
   }
